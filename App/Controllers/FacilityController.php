@@ -17,13 +17,13 @@ Class FacilityController extends BaseController {
 
         // Checks if the body mentioned 'tag' and creates a tag for the database
         if (isset($tekst['tag'])) {
-            $facilityModel = new \App\Models\FacilityModel($this->db);
+            $facilityModel = new \App\Models\createModel($this->db);
             $facilityModel->createTag($tekst['tag']);
         }
 
         // Checks if the body mentioned 'facility' and 'location' to create a facility
         if (isset($tekst['facility_name']) && isset($tekst['location'])) {
-            $facilityModel = new \App\Models\FacilityModel($this->db);
+            $facilityModel = new \App\Models\createModel($this->db);
             $facilityModel->createFacility($tekst['facility_name'], $tekst['location']);
         }
     } catch (Status\Exception $e) {
@@ -35,37 +35,28 @@ Class FacilityController extends BaseController {
 
 
     } 
-}   
 
 
 
-//$rectext = $_POST['text'];
-
-// $bestand = file_get_contents('php://input');
-// $tekst = json_decode($bestand, TRUE);
-// $jari = "jari";
+    public function readtest() {
 
 
+        $recText = $_GET['text'];
+
+        if ($recText >= 10) {
+            echo "Groter dan 10";
+        } else {
+            echo "Kleiner dan 10";
+        }
+
+        // Respond with 200 (OK):
+        (new Status\Ok(['message' => 'FacilityController is working!']))->send();
+    }
+} 
 
 
-// try {
 
-//     // $tekst = (new \App\Models\FacilityModel())->FilterText($tekst, 'tag_name');
 
-//     if (isset($tekst['tag'])) {
-//         $facilityModel = new \App\Models\FacilityModel($this->db);
-//         $facilityModel->createTag($tekst['tag']);
-//     }
 
-//     // if (!isset($tekst['tag_name'])) {
-//     //     throw (new Status\Exception(['message' => "'tag_name' field cannot be empty"]))->send();
-//     // }
 
-//     // if (empty($tekst['tag_name'])) {
-//     //     throw (new Status\Exception(['message' => "'tag_name' field cannot be empty"]))->send();
-//     // }
 
-// } catch (Status\Exception $e) {
-//     (new Status\BadRequest(['message' => $e->getMessage()]))->send();
-//     return;
-// }

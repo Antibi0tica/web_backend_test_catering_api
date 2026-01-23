@@ -6,7 +6,7 @@ use App\Plugins\Http\Response as Status;
 use App\Plugins\Http\Exceptions;
 
 
-class FacilityModel {
+class createModel {
 
     private $db;
 

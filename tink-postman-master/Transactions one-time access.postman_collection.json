@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "d5d80e5b-2062-4585-9b87-58846814c82d",
+		"name": "Transactions One-time access",
+		"description": "Welcome to Tink's Postman collection for Transactions.\n\nFor detailed information on how to use one-time access for Transactions, visit [One-time access to a bank account](https://docs.tink.com/resources/transactions/connect-to-a-bank-account).\n\nThe documentation in this Postman collection shows how you get your Tink variables and enter them in Postman to be able to use this collection.\n\nMake sure that you have created your Tink Console account. This is where you find your API credentials, for example `client_id` and `client_secret`, and create and manage your apps. If you haven't yet created a Console account and an app, go to [Set up your Tink Console account](https://docs.tink.com/resources/landing/set-up-your-tink-account) and follow the instructions to set up an account and create your first app.\n\nIn Postman, go to the **Variables** tab, which should be the one with a green dot next to it. This tab contains four variables. The rest of this documentation shows how to retrieve these values.\n\nMake sure that you enter all of your variables in the **CURRENT VALUE** column.\n\nEnter the `client_id` and `client_secret` values from your Console app.\n\nTo get the `code` value, you must build a Tink Link URL. To do this, open Console and go to **Transactions >** **Tink Link**, and create your own Tink Link. These steps are required for providing consent to a financial institution, so that Tink can connect and retrieve account and transactional data. At the bottom of the page, select **Preview** and follow all steps on the Tink Link page that opens in a new window. At the end of a successful authorization flow, you will receive a `code`. Add this value to your variables.\n\nMake sure that all of your variables are entered into the **CURRENT VALUE** column. Select **Save** (or Ctrl+S).\n\nWhen you've entered all your variables except for `access_token`, run the **POST** command to exchange your `code` for an `access_token`. The value for `access_token` is automatically entered into your list of variables.\n\nConfirm that your `access_token` has been added to your list of variables. Use your `access_token` any number of times to run the **GET** commands to fetch an account list or transactions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Exchange code for an access token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonResponse = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"access_token\", jsonResponse.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code"
+						},
+						{
+							"key": "code",
+							"value": "{{code}}"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.tink.com/api/v1/oauth/token",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tink",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oauth",
+						"token"
+					]
+				},
+				"description": "Welcome to Tink's Postman collection for Transactions.\n\nFor detailed information on how to use one-time access for Transactions, visit [One-time access to a bank account](https://docs.tink.com/resources/transactions/connect-to-a-bank-account).\n\nThe documentation in this Postman collection shows how you get your Tink variables and enter them in Postman to be able to use this collection.\n\nMake sure that you have created your Tink Console account. This is where you find your API credentials, for example `client_id` and `client_secret`, and create and manage your apps. If you haven't yet created a Console account and an app, go to [Set up your Tink Console account](https://docs.tink.com/resources/landing/set-up-your-tink-account) and follow the instructions to set up an account and create your first app.\n\nIn Postman, go to the **Variables** tab, which should be the one with a green dot next to it. This tab contains four variables. The rest of this documentation shows how to retrieve these values.\n\nMake sure that you enter all of your variables in the **CURRENT VALUE** column.\n\nEnter the `client_id` and `client_secret` values from your Console app.\n\nTo get the `code` value, you must build a Tink Link URL. To do this, open Console and go to **Transactions >** **Tink Link**, and create your own Tink Link. These steps are required for providing consent to a financial institution, so that Tink can connect and retrieve account and transactional data. At the bottom of the page, select **Preview** and follow all steps on the Tink Link page that opens in a new window. At the end of a successful authorization flow, you will receive a `code`. Add this value to your variables.\n\nMake sure that all of your variables are entered into the **CURRENT VALUE** column. Select **Save** (or Ctrl+S).\n\nWhen you've entered all your variables except for `access_token`, run the **POST** command to exchange your `code` for an `access_token`. The value for `access_token` is automatically entered into your list of variables.\n\nConfirm that your `access_token` has been added to your list of variables. Use your `access_token` any number of times to run the **GET** commands to fetch an account list or transactions."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get accounts list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.tink.com/data/v2/accounts",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tink",
+						"com"
+					],
+					"path": [
+						"data",
+						"v2",
+						"accounts"
+					]
+				},
+				"description": "Welcome to Tink's Postman collection for Transactions.\n\nFor detailed information on how to use one-time access for Transactions, visit [One-time access to a bank account](https://docs.tink.com/resources/transactions/connect-to-a-bank-account).\n\nThe documentation in this Postman collection shows how you get your Tink variables and enter them in Postman to be able to use this collection.\n\nMake sure that you have created your Tink Console account. This is where you find your API credentials, for example `client_id` and `client_secret`, and create and manage your apps. If you haven't yet created a Console account and an app, go to [Set up your Tink Console account](https://docs.tink.com/resources/landing/set-up-your-tink-account) and follow the instructions to set up an account and create your first app.\n\nIn Postman, go to the **Variables** tab, which should be the one with a green dot next to it. This tab contains four variables. The rest of this documentation shows how to retrieve these values.\n\nMake sure that you enter all of your variables in the **CURRENT VALUE** column.\n\nEnter the `client_id` and `client_secret` values from your Console app.\n\nTo get the `code` value, you must build a Tink Link URL. To do this, open Console and go to **Transactions >** **Tink Link**, and create your own Tink Link. These steps are required for providing consent to a financial institution, so that Tink can connect and retrieve account and transactional data. At the bottom of the page, select **Preview** and follow all steps on the Tink Link page that opens in a new window. At the end of a successful authorization flow, you will receive a `code`. Add this value to your variables.\n\nMake sure that all of your variables are entered into the **CURRENT VALUE** column. Select **Save** (or Ctrl+S).\n\nWhen you've entered all your variables except for `access_token`, run the **POST** command to exchange your `code` for an `access_token`. The value for `access_token` is automatically entered into your list of variables.\n\nConfirm that your `access_token` has been added to your list of variables. Use your `access_token` any number of times to run the **GET** commands to fetch an account list or transactions."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.tink.com/data/v2/transactions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tink",
+						"com"
+					],
+					"path": [
+						"data",
+						"v2",
+						"transactions"
+					]
+				},
+				"description": "Welcome to Tink's Postman collection for Transactions.\n\nFor detailed information on how to use one-time access for Transactions, visit [One-time access to a bank account](https://docs.tink.com/resources/transactions/connect-to-a-bank-account).\n\nThe documentation in this Postman collection shows how you get your Tink variables and enter them in Postman to be able to use this collection.\n\nMake sure that you have created your Tink Console account. This is where you find your API credentials, for example `client_id` and `client_secret`, and create and manage your apps. If you haven't yet created a Console account and an app, go to [Set up your Tink Console account](https://docs.tink.com/resources/landing/set-up-your-tink-account) and follow the instructions to set up an account and create your first app.\n\nIn Postman, go to the **Variables** tab, which should be the one with a green dot next to it. This tab contains four variables. The rest of this documentation shows how to retrieve these values.\n\nMake sure that you enter all of your variables in the **CURRENT VALUE** column.\n\nEnter the `client_id` and `client_secret` values from your Console app.\n\nTo get the `code` value, you must build a Tink Link URL. To do this, open Console and go to **Transactions >** **Tink Link**, and create your own Tink Link. These steps are required for providing consent to a financial institution, so that Tink can connect and retrieve account and transactional data. At the bottom of the page, select **Preview** and follow all steps on the Tink Link page that opens in a new window. At the end of a successful authorization flow, you will receive a `code`. Add this value to your variables.\n\nMake sure that all of your variables are entered into the **CURRENT VALUE** column. Select **Save** (or Ctrl+S).\n\nWhen you've entered all your variables except for `access_token`, run the **POST** command to exchange your `code` for an `access_token`. The value for `access_token` is automatically entered into your list of variables.\n\nConfirm that your `access_token` has been added to your list of variables. Use your `access_token` any number of times to run the **GET** commands to fetch an account list or transactions."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"  pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "client_id",
+			"value": ""
+		},
+		{
+			"key": "client_secret",
+			"value": ""
+		},
+		{
+			"key": "code",
+			"value": ""
+		}
+	]
+}

@@ -97,7 +97,7 @@ class FacilityModel {
             $this->inputChecks($facility);
             $this->inputChecks($location);
 
-            // if (!empty($facility) && is_string($location)) {
+            
 
             $filteredFacility = $this->FilterText(['facility_name' => $facility], 'facility_name');
             $filteredLocation = $this->FilterText(['location' => $location], 'location');

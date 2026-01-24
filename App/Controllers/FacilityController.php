@@ -38,13 +38,23 @@ Class FacilityController extends BaseController {
 
 // Function readTest() Isn't done. Current state isn't finished
 
-    public function readtest() {
+    public function readalltest() {
 
         $readmodel = new \App\Models\ReadModel($this->db);
-        $readmodel->ReadFacility();
+        $readmodel->ReadAllFacility();
         // Respond with 200 (OK):
         (new Status\Ok(['message' => 'Check if sent']))->send();
     }
+
+    public function readonetest($id){
+
+    $url = 'http://localhost/web_backend_test_catering_api/facility';
+    $id = explode('/', $url);
+    echo $id;
+
+    }
+    
+    
 } 
 
 

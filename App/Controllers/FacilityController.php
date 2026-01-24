@@ -36,21 +36,14 @@ Class FacilityController extends BaseController {
 
     } 
 
-
+// Function readTest() Isn't done. Current state isn't finished
 
     public function readtest() {
 
-
-        $recText = $_GET['text'];
-
-        if ($recText >= 10) {
-            echo "Groter dan 10";
-        } else {
-            echo "Kleiner dan 10";
-        }
-
+        $readmodel = new \App\Models\ReadModel($this->db);
+        $readmodel->ReadFacility();
         // Respond with 200 (OK):
-        (new Status\Ok(['message' => 'FacilityController is working!']))->send();
+        (new Status\Ok(['message' => 'Check if sent']))->send();
     }
 } 
 

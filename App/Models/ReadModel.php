@@ -13,6 +13,25 @@ class ReadModel {
     }
 
 
-    
 
-}
+    // Function must be reworked into a better state
+
+    public function ReadFacility() {
+        $query = "SELECT * FROM facility";
+
+
+
+        $result = $this->db->executeQuery($query,[]);
+
+
+        if ($result) {
+            $stmt = $this->db->getStatement();
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($rows as $row) {
+            echo $row['facility_name'];
+        }
+
+        }
+
+    }
+}  

@@ -8,12 +8,14 @@ use App\Plugins\Http\Exceptions;
 
 Class FacilityController extends BaseController {
 
-    public function FacilityController() {
+    public function createController() {
 
     $bestand = file_get_contents('php://input');
     $tekst = json_decode($bestand, TRUE);
 
     try {
+
+        // if (isset($tekst['location_name']))
 
         // Checks if the body mentioned 'tag' and creates a tag for the database
         if (isset($tekst['tag'])) {
@@ -24,7 +26,7 @@ Class FacilityController extends BaseController {
         // Checks if the body mentioned 'facility' and 'location' to create a facility
         if (isset($tekst['facility_name']) && isset($tekst['location'])) {
             $facilityModel = new \App\Models\createModel($this->db);
-            $facilityModel->createFacility($tekst['facility_name'], $tekst['location']);
+            $facilityModel->createFacility($tekst);
         }
     } catch (Status\Exception $e) {
             (new Status\BadRequest(['message' => $e->getMessage()]))->send();
@@ -38,7 +40,7 @@ Class FacilityController extends BaseController {
 
 // Function readTest() Isn't done. Current state isn't finished
 
-    public function readalltest() {
+    public function readAllController() {
 
         $readmodel = new \App\Models\ReadModel($this->db);
         $readmodel->ReadAllFacility();
@@ -46,17 +48,12 @@ Class FacilityController extends BaseController {
         (new Status\Ok(['message' => 'Check if sent']))->send();
     }
 
-    public function readonetest($id) {
+    public function readOneController($id) {
 
-    echo $id;
 
     $readmodel = new \App\Models\ReadModel($this->db);
     $readmodel->ReadOneFacility($id);
-
-    (new Status\Ok(['message' => 'Check if sent']))->send();
-
     
-
     }
     
     

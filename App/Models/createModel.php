@@ -52,13 +52,7 @@ class createModel {
 
     // Mulitple checks to validate input
 
-    if (empty ($tekst)) {
-        throw (new Status\BadRequest(['message' => 'Input cannot be empty']))->send();
-    } 
-
-    if (!is_string($tekst)) {
-        throw (new Status\BadRequest(['message' => 'Input must be a string']))->send();
-    } 
+    $this->inputChecks($tekst);
 
     if (is_string($tekst) && !empty($tekst)) {
 
@@ -78,10 +72,8 @@ class createModel {
       }
     }
 
-    public function createFacility($facility, $location) {
-        // Implementation for creating a facility
-        echo "Creating facility: " . $facility . " at location: " . $location;
-
+    public function createFacility($data) {
+        // Implementation for creating a facility   
         $locationsArray =
         [
             'krommenie' => 1,
@@ -90,12 +82,16 @@ class createModel {
             
         ];
 
-        $query = "INSERT INTO `facility` (`facility_id`, `facility_name`, `creation_date`, `location_id`) VALUES (NULL, ?, current_timestamp(), ?)";
+        $query = "INSERT INTO `facility` (`id`, `facility_name`, `creation_date`, `location_id`) VALUES (NULL, ?, current_timestamp(), ?)";
 
 
-        
-            $this->inputChecks($facility);
-            $this->inputChecks($location);
+        $facility = $data['facility_name'] ?? NULL;
+        $location = $data['location'] ?? NULL;
+
+
+        // Validating input for variables
+        $this->inputChecks($facility);
+        $this->inputChecks($location);
 
             
 
@@ -108,16 +104,14 @@ class createModel {
 
             foreach ($locationsArray as $loc => $locID) {
                 if ($filteredLocation === $loc) {
-                    echo "Filtered Location is ". $filteredLocation . "Which corresponds to " . $locID;
                     $locationID = $locID;
                     break;
                 } 
+            }
 
-                if ($locationID === NULL) {
+            if ($locationID === NULL) {
                     (new Status\BadRequest(['message' => 'Location doesn\'t exist']))->send();
                 }
-
-            }
 
             if ($locationID = $locID) {
                 try {

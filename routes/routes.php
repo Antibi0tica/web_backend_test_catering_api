@@ -9,4 +9,4 @@ $router->get('/menu', App\Controllers\MenuController::class . '@getMenu');
 $router->post('/facility', App\Controllers\FacilityController::class . '@createController');
 $router->get('/facility', App\Controllers\FacilityController::class . '@readAllController');
 $router->get('/facility/(\d+)', App\Controllers\FacilityController::class . '@readOneController');
-$router->post('/update_facility',App\Controllers\FacilityController::class . '@updateController');
+$router->put('/update_facility/(\d+)',App\Controllers\FacilityController::class . '@updateController');

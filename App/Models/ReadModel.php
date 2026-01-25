@@ -5,15 +5,8 @@ namespace App\Models;
 use App\Plugins\Http\Response as Status;
 use App\Plugins\Http\Exceptions;
 
-class ReadModel {
-    private $db;
-
-    public function __construct($db) {
-        $this->db = $db;
-    }
-
-
-
+class ReadModel extends baseModel{
+    
     // Function must be reworked into a better state
 
     public function ReadAllFacility() {
@@ -57,7 +50,7 @@ class ReadModel {
             $stmt = $this->db->getStatement();
             $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-            $response = [' facility' => $rows];
+            $response = ['facility' => $rows];
 
             (new Status\Ok($response))->send();
         }

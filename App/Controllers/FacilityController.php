@@ -19,14 +19,14 @@ Class FacilityController extends BaseController {
 
         // Checks if the body mentioned 'tag' and creates a tag for the database
         if (isset($tekst['tag'])) {
-            $facilityModel = new \App\Models\createModel($this->db);
-            $facilityModel->createTag($tekst['tag']);
+            $createModel = new \App\Models\createModel($this->db);
+            $createModel->createTag($tekst['tag']);
         }
 
         // Checks if the body mentioned 'facility' and 'location' to create a facility
         if (isset($tekst['facility_name']) && isset($tekst['location'])) {
-            $facilityModel = new \App\Models\createModel($this->db);
-            $facilityModel->createFacility($tekst);
+            $createModel = new \App\Models\createModel($this->db);
+            $createModel->createFacility($tekst);
         }
     } catch (Status\Exception $e) {
             (new Status\BadRequest(['message' => $e->getMessage()]))->send();
@@ -42,18 +42,51 @@ Class FacilityController extends BaseController {
 
     public function readAllController() {
 
+    try {
         $readmodel = new \App\Models\ReadModel($this->db);
         $readmodel->ReadAllFacility();
-        // Respond with 200 (OK):
-        (new Status\Ok(['message' => 'Check if sent']))->send();
+        
+    } catch (Status\Exception $e) {
+        (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+        return;
     }
+}
 
     public function readOneController($id) {
 
+    try {
+        $readmodel = new \App\Models\ReadModel($this->db);
+        $readmodel->ReadOneFacility($id);
 
-    $readmodel = new \App\Models\ReadModel($this->db);
-    $readmodel->ReadOneFacility($id);
-    
+    }catch (Status\Exception $e) {
+        (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+        return;
+    }
+}
+
+    public function updateController($id) {
+
+    $bestand = file_get_contents('php://input');
+    $tekst = json_decode($bestand, TRUE);
+
+
+    try {
+        if (isset($tekst['tag'])) {
+            $updateModel = new \App\Models\updateModel($this->db);
+            $updateModel->updateTag($id, $tekst);
+        }
+
+        if (isset($tekst['facility_name'])) {
+            $updateModel = new \App\Models\updateModel($this->db);
+            $updateModel->updateFacility($id, $tekst);
+        }
+
+
+    } catch (Status\Exception $e) {
+        (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+        return;
+    }
+
     }
     
     

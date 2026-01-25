@@ -6,43 +6,7 @@ use App\Plugins\Http\Response as Status;
 use App\Plugins\Http\Exceptions;
 
 
-class createModel {
-
-    private $db;
-
-    public function __construct($db) {
-        $this->db = $db;
-    }
-
-    //  Filter text input from the JSON body  
-    public function FilterText(array $text, string $key) {
-
-
-        $value = $text[$key];
-
-        $value = trim($value);
-        $value = strtolower($value);
-        $value = str_replace("'", "", $value);
-        $value = stripslashes($value);
-
-        $value = preg_replace('/\s+/u', ' ', $value);
-
-        $text[$key] = $value;
-        return $text[$key]; 
-        }
-
-
-    public function inputChecks($tekst) {
-        // Implementation for input checks
-
-        if (empty ($tekst)) {
-            throw (new Status\BadRequest(['message' => 'Input cannot be empty']))->send();
-        }
-
-        if (!is_string($tekst)) {
-            throw (new Status\BadRequest(['message' => 'Input must be a string']))->send();
-        }
-    }
+class createModel extends baseModel {
 
     public function createTag($tekst) { 
 

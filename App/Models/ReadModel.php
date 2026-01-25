@@ -42,7 +42,6 @@ class ReadModel {
 
     public function ReadOneFacility($id) {
 
-        $id = '';
 
        $query = 
        "SELECT facility.facility_name, facility.location_id, tag.name
@@ -52,6 +51,16 @@ class ReadModel {
         WHERE facility.id = ?;";
 
 
+        $result = $this->db->executeQuery($query,[$id]);
+
+        if ($result) {
+            $stmt = $this->db->getStatement();
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            $response = [' facility' => $rows];
+
+            (new Status\Ok($response))->send();
+        }
 
         
     }

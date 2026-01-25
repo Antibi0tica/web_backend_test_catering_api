@@ -46,11 +46,16 @@ Class FacilityController extends BaseController {
         (new Status\Ok(['message' => 'Check if sent']))->send();
     }
 
-    public function readonetest($id){
+    public function readonetest($id) {
 
-    $url = 'http://localhost/web_backend_test_catering_api/facility';
-    $id = explode('/', $url);
     echo $id;
+
+    $readmodel = new \App\Models\ReadModel($this->db);
+    $readmodel->ReadOneFacility($id);
+
+    (new Status\Ok(['message' => 'Check if sent']))->send();
+
+    
 
     }
     

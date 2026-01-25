@@ -8,4 +8,4 @@ $router->get('/', App\Controllers\IndexController::class . '@test');
 $router->get('/menu', App\Controllers\MenuController::class . '@getMenu');
 $router->post('/facility', App\Controllers\FacilityController::class . '@FacilityController');
 $router->get('/facility', App\Controllers\FacilityController::class . '@readalltest');
-$router->get('/facilitytest/', App\Controllers\FacilityController::class . '@readonetest');
+$router->get('/facility/(\d+)', App\Controllers\FacilityController::class . '@readonetest');

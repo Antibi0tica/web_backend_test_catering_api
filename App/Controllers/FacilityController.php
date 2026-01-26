@@ -15,8 +15,6 @@ Class FacilityController extends BaseController {
 
     try {
 
-        // if (isset($tekst['location_name']))
-
         // Checks if the body mentioned 'tag' and creates a tag for the database
         if (isset($tekst['tag'])) {
             $createModel = new \App\Models\createModel($this->db);
@@ -28,6 +26,9 @@ Class FacilityController extends BaseController {
             $createModel = new \App\Models\createModel($this->db);
             $createModel->createFacility($tekst);
         }
+
+
+        // New If statement for the creation of the conjuction table (Facility.id and )
     } catch (Status\Exception $e) {
             (new Status\BadRequest(['message' => $e->getMessage()]))->send();
             return;
@@ -88,6 +89,17 @@ Class FacilityController extends BaseController {
     }
 
     }
+
+
+    public function deleteController($id) {
+        echo $id;
+        try {
+            $deleteModel = new \App\Models\deleteModel($this->db);
+            $deleteModel->deleteModel($id);
+        } catch (Status\Exception $e) {
+        (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+        return;
+        }
     
     
 } 
@@ -98,3 +110,4 @@ Class FacilityController extends BaseController {
 
 
 
+}

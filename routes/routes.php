@@ -10,3 +10,4 @@ $router->post('/facility', App\Controllers\FacilityController::class . '@createC
 $router->get('/facility', App\Controllers\FacilityController::class . '@readAllController');
 $router->get('/facility/(\d+)', App\Controllers\FacilityController::class . '@readOneController');
 $router->put('/update_facility/(\d+)',App\Controllers\FacilityController::class . '@updateController');
+$router->delete('/delete_facility/(\d+)',App\Controllers\FacilityController::class . '@deleteController');

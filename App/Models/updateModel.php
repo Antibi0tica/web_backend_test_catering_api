@@ -17,29 +17,20 @@ class updateModel extends baseModel{
 
 
         $filteredFacility = $this->FilterText(['facility_name' => $facility], 'facility_name');
+        
 
-        $dbFacility = "SELECT facility.facility_name FROM facility WHERE facility.id = ?;";
-        $updatequery = "UPDATE `facility` SET `facility_name` = ? WHERE `facility`.`id` = ?;";
+        $query = "UPDATE `facility` SET `facility_name` = ? WHERE `facility`.`id` = ?;";
 
-        $result = $this->db->executeQuery($dbFacility,[$id]);
-        $update = $this->db->executeQuery($updatequery, [$filteredFacility, $id]);
+        $update = $this->db->executeQuery($query, [$filteredFacility, $id]);
 
             if ($update){ 
                 $stmt = $this->db->getStatement();
                 $rows = $stmt->FetchAll(\PDO::FETCH_ASSOC);
 
+                (new Status\Ok(['Message' => 'Facility updated successfully']))->send();
+            } else {
+                (new Status\BadRequest(['message' => 'Facilty update failed']))->send();
             }
-
-            if ($result){
-                (new Status\Ok(['facility_name' => 'Has been updated']))->send();
-            }
-
-        
-
-
-
-
-
 
 
     }
@@ -47,10 +38,25 @@ class updateModel extends baseModel{
 
     public function updateTag($id, $tekst) {
 
-        $this->inputCheck($tekst);
+        $tag = $tekst['tag'];
+
+        $this->inputChecks($tag);
 
 
+        $filteredTag = $this->FilterText(['tag' => $tag], 'tag');
 
+        $query = "UPDATE `tag` SET `name` = ? WHERE `tag`.`id` = ?;";
+
+        $update = $this->db->executeQuery($query, [$filteredTag, $id]);
+
+        if ($update){ 
+                $stmt = $this->db->getStatement();
+                $rows = $stmt->FetchAll(\PDO::FETCH_ASSOC);
+
+                (new Status\Ok(['Message' => 'Tag updated successfully']))->send();
+            } else {
+                (new Status\BadRequest(['message' => 'Facilty update failed']))->send();
+            }
     }
 
 

@@ -8,7 +8,7 @@ use App\Plugins\Http\Exceptions;
 
 class createModel extends baseModel {
 
-    public function createTag($tekst) { 
+    public function createTag(string $tekst) { 
 
     // Creating a query to insert the tag into the database
     $query = "INSERT INTO `tag` (`tag_id`, `name`) VALUES (NULL, ?)";
@@ -38,13 +38,6 @@ class createModel extends baseModel {
 
     public function createFacility($data) {
         // Implementation for creating a facility   
-        $locationsArray =
-        [
-            'krommenie' => 1,
-            'assendelft' => 2,
-            'wormerveer' => 3
-            
-        ];
 
         $query = "INSERT INTO `facility` (`id`, `facility_name`, `creation_date`, `location_id`) VALUES (NULL, ?, current_timestamp(), ?)";
 
@@ -66,7 +59,7 @@ class createModel extends baseModel {
 
             $locationID = NULL;
 
-            foreach ($locationsArray as $loc => $locID) {
+            foreach (self::LOCATIONS as $loc => $locID) {
                 if ($filteredLocation === $loc) {
                     $locationID = $locID;
                     break;
@@ -77,7 +70,7 @@ class createModel extends baseModel {
                     (new Status\BadRequest(['message' => 'Location doesn\'t exist']))->send();
                 }
 
-            if ($locationID = $locID) {
+            if ($locationID == $locID) {
                 try {
                     $result = $this->db->executeQuery($query, [$filteredFacility, $locID]);
 

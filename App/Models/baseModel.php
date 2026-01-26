@@ -36,4 +36,13 @@ abstract class BaseModel {
         $text[$key] = $value;
         return $text[$key]; 
         }
+
+    private const LOCATIONS = 
+        [
+            'krommenie' => 1,
+            'assendelft' => 2,
+            'wormerveer' => 3
+            
+        ];
+    
 }

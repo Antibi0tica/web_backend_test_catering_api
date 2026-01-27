@@ -11,7 +11,7 @@ class createModel extends baseModel {
     public function createTag(string $tekst) { 
 
     // Creating a query to insert the tag into the database
-    $query = "INSERT INTO `tag` (`tag_id`, `name`) VALUES (NULL, ?)";
+    $query = "INSERT INTO `tag` (`id`, `name`) VALUES (NULL, ?)";
 
 
     // Mulitple checks to validate input

@@ -27,17 +27,12 @@ Class FacilityController extends BaseController {
             $createModel->createFacility($tekst);
         }
 
-
         // New If statement for the creation of the conjuction table (Facility.id and )
     } catch (Status\Exception $e) {
             (new Status\BadRequest(['message' => $e->getMessage()]))->send();
             return;
-
     }
-
-
-
-    } 
+} 
 
 // Function readTest() Isn't done. Current state isn't finished
 
@@ -76,13 +71,10 @@ Class FacilityController extends BaseController {
             $updateModel = new \App\Models\updateModel($this->db);
             $updateModel->updateTag($id, $tekst);
         }
-
         if (isset($tekst['facility_name'])) {
             $updateModel = new \App\Models\updateModel($this->db);
             $updateModel->updateFacility($id, $tekst);
         }
-
-
     } catch (Status\Exception $e) {
         (new Status\BadRequest(['message' => $e->getMessage()]))->send();
         return;
@@ -100,9 +92,23 @@ Class FacilityController extends BaseController {
         (new Status\BadRequest(['message' => $e->getMessage()]))->send();
         return;
         }
-    
-    
 } 
+
+    public function searchController() {
+
+        if (isset($_GET['q']) && $_GET['q'] != '') {
+
+        try {
+            $searchModel = new \App\Models\searchModel($this->db);
+            $searchModel->searchModel($q);
+        } catch (Status\Exception $e) {
+        (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+        return;
+        }
+        }
+        
+        
+    }
 
 
 

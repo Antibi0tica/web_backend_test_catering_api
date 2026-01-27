@@ -11,3 +11,4 @@ $router->get('/facility', App\Controllers\FacilityController::class . '@readAllC
 $router->get('/facility/(\d+)', App\Controllers\FacilityController::class . '@readOneController');
 $router->put('/update_facility/(\d+)',App\Controllers\FacilityController::class . '@updateController');
 $router->delete('/delete_facility/(\d+)',App\Controllers\FacilityController::class . '@deleteController');
+$router->get('/facility/search', App\Controllers\FacilityController::class . '@searchController');

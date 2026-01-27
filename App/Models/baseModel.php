@@ -19,6 +19,8 @@ abstract class BaseModel {
         if (!is_string($tekst)) {
             throw (new Status\BadRequest(['message' => 'Input must be a string']))->send();
         }
+
+        
     }
 
     public function FilterText(array $text, string $key) {
@@ -37,7 +39,7 @@ abstract class BaseModel {
         return $text[$key]; 
         }
 
-    private const LOCATIONS = 
+    public const LOCATIONS = 
         [
             'krommenie' => 1,
             'assendelft' => 2,

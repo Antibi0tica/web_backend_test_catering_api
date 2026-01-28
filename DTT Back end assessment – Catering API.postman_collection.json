@@ -1,74 +1,125 @@
 {
-	"info": {
-		"_postman_id": "dad8f025-df49-4993-9390-d09e4458e6b6",
-		"name": "DTT Back end assessment – Catering API",
-		"description": "The Postman collection for the DTT backend assessment test: Catering API.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "4553050"
-	},
-	"item": [
-		{
-			"name": "Test API",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/test",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"test"
-					]
-				},
-				"description": "API call used to test local development environment and database connection.\n\nShould print _'Hello World!'_ if all is OK."
-			},
-			"response": []
-		},
-		{
-			"name": "Create facility (TODO)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/facility",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"facility"
-					]
-				},
-				"description": "Creates a facility..."
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost/web_backend_test_catering_api",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "034c2847-b8e8-4704-811e-7bd1a5b5ced5",
+    "name": "DTT Back end assessment – Catering API",
+    "description": "The Postman collection for the DTT backend assessment test: Catering API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51633199",
+    "_collection_link": "https://go.postman.co/collection/51633199-034c2847-b8e8-4704-811e-7bd1a5b5ced5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Test API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/test",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "test"
+          ]
+        },
+        "description": "API call used to test local development environment and database connection.\n\nShould print _'Hello World!'_ if all is OK."
+      },
+      "response": []
+    },
+    {
+      "name": "Create facility (TODO)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/facility",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "facility"
+          ]
+        },
+        "description": "Creates a facility..."
+      },
+      "response": []
+    },
+    {
+      "name": "Read Facility",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Update Facility",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseurl}}/update_facility",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "update_facility"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Facility",
+      "request": {
+        "method": "DELETE",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Search Facility",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost/web_backend_test_catering_api",
+      "type": "string"
+    }
+  ]
 }

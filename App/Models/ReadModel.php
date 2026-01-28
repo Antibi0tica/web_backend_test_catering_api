@@ -5,11 +5,17 @@ namespace App\Models;
 use App\Plugins\Http\Response as Status;
 use App\Plugins\Http\Exceptions;
 
-class ReadModel extends baseModel{
-    
-    // Function must be reworked into a better state
+// ReadModel handles retrieval operations for facilities
 
-    public function ReadAllFacility() {
+class ReadModel extends BaseModel {
+    /** 
+    * Retrieve all facilities with their locations and tags
+    *
+    * @return void Sends JSON response with all facilities
+    */
+    public function readAllFacility() {
+
+        // Base Query to join facility, location and tag tables
         $query =
         "SELECT facility.facility_name, facility.location_id, tag.name
         FROM facility 
@@ -17,8 +23,9 @@ class ReadModel extends baseModel{
         LEFT JOIN tag ON (tag.id = facility_tag.tag_id);";
 
 
-        $result = $this->db->executeQuery($query,[]);
-
+        // Execute query and send response
+        try {
+            $result = $this->db->executeQuery($query, []);
 
         if ($result) {
             $stmt = $this->db->getStatement();
@@ -27,15 +34,23 @@ class ReadModel extends baseModel{
             $response = ['facility' => $rows];
             
             (new Status\Ok($response))->send();
-        
-
+        }
+        } catch  (Status\Exception $e) {
+            (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+            return; 
         }
 
     }
 
-    public function ReadOneFacility($id) {
+    /**
+     * Retrieve a single facility by ID with its location and tags
+     * 
+     * @param int $id The facility ID to retrieve
+     * @return void Sends JSON response with facility data
+     */
+    public function readOneFacility($id) {
 
-
+        // Base query
        $query = 
        "SELECT facility.facility_name, facility.location_id, tag.name
         FROM facility 
@@ -44,15 +59,25 @@ class ReadModel extends baseModel{
         WHERE facility.id = ?;";
 
 
-        $result = $this->db->executeQuery($query,[$id]);
+        
 
-        if ($result) {
+        
+        // Execute query and send response
+        try {
+            $result = $this->db->executeQuery($query, [$id]);
+
+            if ($result) {
             $stmt = $this->db->getStatement();
             $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
             $response = ['facility' => $rows];
 
             (new Status\Ok($response))->send();
+            }
+        
+        } catch (Status\Exception $e) {
+            (new Status\BadRequest(['message' => $e->getMessage()]))->send();
+            return; 
         }
 
         

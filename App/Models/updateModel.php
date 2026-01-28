@@ -5,59 +5,50 @@ namespace App\Models;
 use App\Plugins\Http\Response as Status;
 use App\Plugins\Http\Exceptions;
 
+/**
+ * UpdateModel handles update operations for facilities and tags
+ */
 
+class UpdateModel extends BaseModel {
 
-class updateModel extends baseModel{
+    /**
+     * Update a facility's name
+     * 
+     * @param int $id The facility ID to update
+     * @param array $data Array containing 'facility_name' key
+     * @return void Sends JSON response with update status
+     */
     
-    public function updateFacility($id, $tekst) {
+    public function updateFacility($id, $data) {
+        // Extract and validate facility name from request data
+        $facility = $data['facility_name'];
+        $this->inputCheck($facility);
+        $filteredFacility = $this->filterText(['facility_name' => $facility], 'facility_name');
 
-        $facility = $tekst['facility_name'];
-
-        $this->inputChecks($facility);
-
-
-        $filteredFacility = $this->FilterText(['facility_name' => $facility], 'facility_name');
-        
-
-        $query = "UPDATE `facility` SET `facility_name` = ? WHERE `facility`.`id` = ?;";
-
-        $update = $this->db->executeQuery($query, [$filteredFacility, $id]);
-
-            if ($update){ 
-                $stmt = $this->db->getStatement();
-                $rows = $stmt->FetchAll(\PDO::FETCH_ASSOC);
-
-                (new Status\Ok(['Message' => 'Facility updated successfully']))->send();
-            } else {
-                (new Status\BadRequest(['message' => 'Facilty update failed']))->send();
-            }
-
+         // Update facility name in database
+        $this->updateField('facility', 'facility_name', $filteredFacility, $id, 'Facility', 'updated');    
 
     }
 
 
-    public function updateTag($id, $tekst) {
+    /**
+     * Update a tag's name
+     * 
+     * @param int $id The tag ID to update
+     * @param array $data Array containing 'tag' key
+     * @return void Sends JSON response with update status
+     */
+    public function updateTag($id, $data) {
 
-        $tag = $tekst['tag'];
+        // Extract and validate tag name from request data
+        $tag = $data['tag'];
+        $this->inputCheck($tag);
+        $filteredTag = $this->filterText(['tag' => $tag], 'tag');
 
-        $this->inputChecks($tag);
-
-
-        $filteredTag = $this->FilterText(['tag' => $tag], 'tag');
-
-        $query = "UPDATE `tag` SET `name` = ? WHERE `tag`.`id` = ?;";
-
-        $update = $this->db->executeQuery($query, [$filteredTag, $id]);
-
-        if ($update){ 
-                $stmt = $this->db->getStatement();
-                $rows = $stmt->FetchAll(\PDO::FETCH_ASSOC);
-
-                (new Status\Ok(['Message' => 'Tag updated successfully']))->send();
-            } else {
-                (new Status\BadRequest(['message' => 'Facilty update failed']))->send();
-            }
+        // Update tag name in database
+        $this->updateField('tag', 'name', $filteredTag, $id, 'Tag', 'updated');
     }
+
 
 
 }
